@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
+const errorHandler = require('./middleware/error');
 const colors = require("colors");
 
 //load env vars
@@ -24,6 +25,8 @@ if (process.env.NODE_ENV === "development") {
 
 //mount routers
 app.use("/api/v1/bootcamps", bootcamps);
+
+app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("Hello from express");
